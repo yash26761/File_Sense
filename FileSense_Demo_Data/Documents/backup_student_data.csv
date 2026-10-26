@@ -1,0 +1,41 @@
+student_id,name,department,gpa,attendance_pct
+STU_1001,Student_1,Information Technology,3.10,81
+STU_1002,Student_2,Data Science,3.20,82
+STU_1003,Student_3,Electronics,3.30,83
+STU_1004,Student_4,Computer Science,3.40,84
+STU_1005,Student_5,Information Technology,3.50,85
+STU_1006,Student_6,Data Science,3.60,86
+STU_1007,Student_7,Electronics,3.70,87
+STU_1008,Student_8,Computer Science,3.80,88
+STU_1009,Student_9,Information Technology,3.90,89
+STU_1010,Student_10,Data Science,3.00,90
+STU_1011,Student_11,Electronics,3.10,91
+STU_1012,Student_12,Computer Science,3.20,92
+STU_1013,Student_13,Information Technology,3.30,93
+STU_1014,Student_14,Data Science,3.40,94
+STU_1015,Student_15,Electronics,3.50,95
+STU_1016,Student_16,Computer Science,3.60,96
+STU_1017,Student_17,Information Technology,3.70,97
+STU_1018,Student_18,Data Science,3.80,98
+STU_1019,Student_19,Electronics,3.90,99
+STU_1020,Student_20,Computer Science,3.00,80
+STU_1021,Student_21,Information Technology,3.10,81
+STU_1022,Student_22,Data Science,3.20,82
+STU_1023,Student_23,Electronics,3.30,83
+STU_1024,Student_24,Computer Science,3.40,84
+STU_1025,Student_25,Information Technology,3.50,85
+STU_1026,Student_26,Data Science,3.60,86
+STU_1027,Student_27,Electronics,3.70,87
+STU_1028,Student_28,Computer Science,3.80,88
+STU_1029,Student_29,Information Technology,3.90,89
+STU_1030,Student_30,Data Science,3.00,90
+STU_1031,Student_31,Electronics,3.10,91
+STU_1032,Student_32,Computer Science,3.20,92
+STU_1033,Student_33,Information Technology,3.30,93
+STU_1034,Student_34,Data Science,3.40,94
+STU_1035,Student_35,Electronics,3.50,95
+STU_1036,Student_36,Computer Science,3.60,96
+STU_1037,Student_37,Information Technology,3.70,97
+STU_1038,Student_38,Data Science,3.80,98
+STU_1039,Student_39,Electronics,3.90,99
+STU_1040,Student_40,Computer Science,3.00,80

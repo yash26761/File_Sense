@@ -1,0 +1,3 @@
+FileSense: Intelligent File & Storage Analytics System
+This project analyzes directory hierarchies, isolates storage usage by extension,
+detects byte-identical duplicates with SHA-256, and executes PySpark aggregations.

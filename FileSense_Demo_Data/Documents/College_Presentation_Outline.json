@@ -1,0 +1,26 @@
+{
+  "presentation_title": "FileSense College Capstone Project",
+  "duration_minutes": 15,
+  "slides": [
+    {
+      "slide": 1,
+      "topic": "Introduction & Problem Statement"
+    },
+    {
+      "slide": 2,
+      "topic": "Architecture & Technologies (Flask, PySpark, Vanilla CSS)"
+    },
+    {
+      "slide": 3,
+      "topic": "Chunked SHA-256 Duplicate Identification Algorithm"
+    },
+    {
+      "slide": 4,
+      "topic": "PySpark Memory Tuning on 8GB Hardware"
+    },
+    {
+      "slide": 5,
+      "topic": "Live Demonstration & Results"
+    }
+  ]
+}

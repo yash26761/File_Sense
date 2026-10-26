@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileSense - Intelligent File Analytics & Duplicate Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-badge">FS</span>
+                <div>
+                    <h1>FileSense</h1>
+                    <p class="tagline">Local Directory Insights, Storage Breakdown & Duplicate Discovery</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Card -->
+        <main class="main-card">
+            <!-- Controls -->
+            <section class="scan-controls" aria-label="Directory Scan Input">
+                <label for="folderPathInput" class="input-label">Directory Path</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="folderPathInput" 
+                        placeholder="Enter full folder path (e.g. C:\Users\Username\Projects)" 
+                        autocomplete="off" 
+                        spellcheck="false"
+                    />
+                    <button type="button" id="browseBtn" class="btn-secondary">
+                        <span class="btn-text">Browse Folder</span>
+                    </button>
+                    <button type="button" id="scanBtn">
+                        <span class="btn-text">Scan Folder</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Alerts -->
+            <div id="errorBox" class="alert alert-error" role="alert" hidden></div>
+            <div id="warningsBox" class="alert alert-warning" role="region" hidden>
+                <div class="warning-title">Warning: Some files could not be scanned or hashed</div>
+                <div id="warningsList" class="warning-content"></div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingIndicator" class="loading-state" hidden aria-live="polite">
+                <div class="spinner"></div>
+                <p class="loading-title">Analyzing folder metadata & content...</p>
+                <p class="loading-desc">Scanning files, detecting duplicates with SHA-256, and executing PySpark aggregations.</p>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsContainer" class="results-section" hidden>
+                <!-- Summary Metrics Grid -->
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <span class="summary-label">Total Files</span>
+                        <span id="fileCount" class="summary-value">0</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-label">Total Size</span>
+                        <span id="totalSize" class="summary-value">0 B</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-label">Duplicate Groups</span>
+                        <span id="duplicateGroupCount" class="summary-value accent-warning">0</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-label">Recoverable Storage</span>
+                        <span id="recoverableSize" class="summary-value accent-success">0 B</span>
+                    </div>
+                    <div class="summary-card full-width">
+                        <span class="summary-label">Scanned Directory</span>
+                        <span id="scannedPath" class="summary-path"></span>
+                    </div>
+                </div>
+
+                <!-- Analysis Grid: Extensions & Top 10 Files -->
+                <div class="analysis-grid">
+                    <!-- Storage by File Extension -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Storage by File Type</h2>
+                            <span id="extTypeCounter" class="badge">0 types</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Extension</th>
+                                        <th scope="col">Files</th>
+                                        <th scope="col">Total Size</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="extensionTableBody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Top 10 Largest Files -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Top 10 Largest Files</h2>
+                            <span id="topFilesCounter" class="badge">Top 10</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 10%;">#</th>
+                                        <th scope="col" style="width: 50%;">Name</th>
+                                        <th scope="col" style="width: 40%;">Size</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topFilesTableBody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicate File Groups -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>Duplicate File Groups</h2>
+                        <span id="dupGroupBadge" class="badge">0 groups</span>
+                    </div>
+                    <div id="duplicateGroupsContainer" class="duplicate-groups-list">
+                        <!-- Populated dynamically with textContent only -->
+                    </div>
+                </div>
+
+                <!-- Full Discovered Files Table -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h2>All Discovered Files</h2>
+                        <span id="tableFileCounter" class="badge">0 items</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 30%;">File Name</th>
+                                    <th scope="col" style="width: 15%;">Extension</th>
+                                    <th scope="col" style="width: 20%;">Size</th>
+                                    <th scope="col" style="width: 35%;">Full Path</th>
+                                </tr>
+                            </thead>
+                            <tbody id="filesTableBody">
+                                <!-- Populated dynamically with textContent only -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
